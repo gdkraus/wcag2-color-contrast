@@ -13,10 +13,17 @@ Example:
 
 $results = evaluateColorContrast("ff0000","ffffff");
 
+
 $results["levelAANormal"] = 'fail';
+
 $results["levelAALarge"] = 'pass';
+
 $results["levelAAMediumBold"] = 'pass';
+
 $results["levelAAANormal"] = 'fail';
+
 $results["levelAAALarge"] = 'fail';
+
 $results["levelAAAMediumBold"] = 'fail';
+
 $results["ratio"] = '4.0';
