@@ -1,11 +1,24 @@
 <?php
 
-// calculates the luminosity of an given RGB color
-// the color code must be in the format of RRGGBB
-// the luminosity equations are from the WCAG 2 requirements
-// http://www.w3.org/TR/WCAG20/#relativeluminancedef
-
+if (!function_exists('calculateLuminosity')) {
+/**
+ * Calculate the luminosity of a given RGB color.
+ *
+ * The color code must be in the format of RRGGBB.
+ *
+ * The luminosity equations are from the WCAG 2 requirements:
+ * http://www.w3.org/TR/WCAG20/#relativeluminancedef
+ *
+ * @param string $color1
+ * @param string $color2
+ * @return float
+ **/
 function calculateLuminosity($color) {
+    $color = ltrim(trim($color), '#');
+
+    if (!preg_match('/^[0-9a-fA-F]{6}$/', $color)) {
+        throw new InvalidArgumentException('Incorrect color format.');
+    }
 
     $r = hexdec(substr($color, 0, 2)) / 255; // red value
     $g = hexdec(substr($color, 2, 2)) / 255; // green value
@@ -31,11 +44,20 @@ function calculateLuminosity($color) {
     $luminosity = 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
     return $luminosity;
 }
+}
 
-// calculates the luminosity ratio of two colors
-// the luminosity ratio equations are from the WCAG 2 requirements
-// http://www.w3.org/TR/WCAG20/#contrast-ratiodef
 
+if (!function_exists('calculateLuminosityRatio')) {
+/**
+ * Calculate the luminosity ratio of two colors.
+ *
+ * The luminosity ratio equations are from the WCAG 2 requirements:
+ * http://www.w3.org/TR/WCAG20/#contrast-ratiodef
+ *
+ * @param string $color1
+ * @param string $color2
+ * @return float
+ **/
 function calculateLuminosityRatio($color1, $color2) {
     $l1 = calculateLuminosity($color1);
     $l2 = calculateLuminosity($color2);
@@ -47,14 +69,24 @@ function calculateLuminosityRatio($color1, $color2) {
     }
     return $ratio;
 }
+}
 
-// returns an array with the results of the color contrast analysis
-// it returns akey for each level (AA and AAA, both for normal and large or bold text)
-// it also returns the calculated contrast ratio
-// the ratio levels are from the WCAG 2 requirements
-// http://www.w3.org/TR/WCAG20/#visual-audio-contrast (1.4.3)
-// http://www.w3.org/TR/WCAG20/#larger-scaledef
 
+if (!function_exists('evaluateColorContrast')) {
+/**
+ * Returns an array with the results of the color contrast analysis
+ *
+ * Returns a key for the conformance levels AA and AAA, both for normal
+ * and large or bold text, as well as the calculated contrast ratio.
+ *
+ * The ratio levels are from the WCAG 2 requirements:
+ * http://www.w3.org/TR/WCAG20/#visual-audio-contrast (1.4.3)
+ * http://www.w3.org/TR/WCAG20/#larger-scaledef
+ *
+ * @param string $color1
+ * @param string $color2
+ * @return array
+ **/
 function evaluateColorContrast($color1, $color2) {
     $ratio = calculateLuminosityRatio($color1, $color2);
 
@@ -68,4 +100,6 @@ function evaluateColorContrast($color1, $color2) {
 
     return $colorEvaluation;
 }
+}
+
 ?>
