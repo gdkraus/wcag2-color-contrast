@@ -1,5 +1,6 @@
 <?php
 
+if (!function_exists('calculateLuminosity')) {
 /**
  * Calculate the luminosity of a given RGB color.
  *
@@ -13,7 +14,6 @@
  * @return float
  **/
 function calculateLuminosity($color) {
-
     $r = hexdec(substr($color, 0, 2)) / 255; // red value
     $g = hexdec(substr($color, 2, 2)) / 255; // green value
     $b = hexdec(substr($color, 4, 2)) / 255; // blue value
@@ -38,7 +38,10 @@ function calculateLuminosity($color) {
     $luminosity = 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
     return $luminosity;
 }
+}
 
+
+if (!function_exists('calculateLuminosityRatio')) {
 /**
  * Calculate the luminosity ratio of two colors.
  *
@@ -60,7 +63,10 @@ function calculateLuminosityRatio($color1, $color2) {
     }
     return $ratio;
 }
+}
 
+
+if (!function_exists('evaluateColorContrast')) {
 /**
  * Returns an array with the results of the color contrast analysis
  *
@@ -88,4 +94,6 @@ function evaluateColorContrast($color1, $color2) {
 
     return $colorEvaluation;
 }
+}
+
 ?>
