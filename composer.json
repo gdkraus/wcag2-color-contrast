@@ -1,0 +1,29 @@
+{
+    "name": "gdkraus/wcag2-color-contrast",
+    "description": "Comparing two RGB values to determine if they meet WCAG 2 color conformance requirements.",
+    "keywords": ["accessibility", "a11y", "color", "wcag", "contrast"],
+    "authors": [
+        {
+            "name": "Greg Kraus",
+            "email": "gdkraus@ncsu.edu"
+        },
+        {
+            "name": "Pascal Sommer",
+            "email": "p@pascalsommer.ch"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
+    "autoload": {
+        "files": ["src/wcag2-color-contrast.php"]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/ColorContrastTest.php"
+        ]
+    }
+}
