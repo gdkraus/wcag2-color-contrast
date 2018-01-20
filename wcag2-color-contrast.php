@@ -14,6 +14,12 @@ if (!function_exists('calculateLuminosity')) {
  * @return float
  **/
 function calculateLuminosity($color) {
+    $color = ltrim(trim($color), '#');
+
+    if (!preg_match('/^[0-9a-fA-F]{6}$/', $color)) {
+        throw new InvalidArgumentException('Incorrect color format.');
+    }
+
     $r = hexdec(substr($color, 0, 2)) / 255; // red value
     $g = hexdec(substr($color, 2, 2)) / 255; // green value
     $b = hexdec(substr($color, 4, 2)) / 255; // blue value
